@@ -10,7 +10,7 @@ A self-contained, recruiter-friendly multi-agent predictive maintenance system s
 2. **415V 3200A Motor Control Centers (MCC)** (IEEE C37.20.1 / IEEE 141)
 3. **315kW Heavy Industrial Variable Frequency Drives (VFD)** (PWM Inverters & IEEE 519)
 
-Refactored from cloud-dependent architectures (MongoDB Atlas) to a **zero-cloud, local SQLite + SQLAlchemy** stack with fallback JSON metadata and production calendars. Anyone can clone this repository and run the full pipeline locally with **`python main.py`** without needing cloud accounts or paid API keys.
+ **zero-cloud, local SQLite + SQLAlchemy** stack with fallback JSON metadata and production calendars. Anyone can clone this repository and run the full pipeline locally with **`python main.py`** without needing cloud accounts or paid API keys.
 
 ---
 
@@ -89,14 +89,27 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Run the CLI
-The database will automatically seed with realistic industrial telemetry and OEM manual chunks on first launch:
-```bash
-python main.py
+### 3. Launch the 1-Click Interactive Web Dashboard
+You can launch the full interactive GUI application with a single command or by double-clicking `run_app.bat`:
+
+```powershell
+# 1-Click Launcher (starts server and opens browser automatically)
+.\run_app.bat
+
+# Or via Python:
+python app.py
+
+# Or via CLI flag:
+python main.py --web
 ```
+Access the dashboard at **`http://127.0.0.1:8000`**.
 
 ### 4. Direct CLI Commands
+If you prefer running in terminal:
 ```bash
+# Interactive terminal menu (choose option 1-7)
+python main.py
+
 # Diagnose 11kV Dry-Type Transformer (Faulty: Overheat & Fan Failure)
 python main.py --asset TR-11kV-01
 
@@ -111,9 +124,6 @@ python main.py --asset TR-11kV-NORMAL
 
 # Run all assets sequentially
 python main.py --all
-
-# Re-seed SQLite database with fresh initial sensor telemetry
-python main.py --reseed
 ```
 
 ---
