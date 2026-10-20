@@ -1,13 +1,19 @@
 """
-agents package - Specialized multi-agent system for heavy electrical predictive maintenance.
+agents package - Re-exports agents from src.agents for backward compatibility.
 """
 
-from agents.telemetry_diagnostics import telemetry_diagnostics_agent
-from agents.manual_retrieval import manual_retrieval_agent
-from agents.work_order_scheduler import work_order_scheduler_agent
+from src.agents import (
+    telemetry_diagnostics_agent,
+    manual_retrieval_agent,
+    work_order_scheduler_agent,
+    analyze_telemetry_heuristics,
+    get_asset_type_from_id
+)
 
 __all__ = [
     "telemetry_diagnostics_agent",
     "manual_retrieval_agent",
     "work_order_scheduler_agent",
+    "analyze_telemetry_heuristics",
+    "get_asset_type_from_id",
 ]

@@ -1,20 +1,11 @@
-# Virtual Environment
+__pycache__/
+*.db
+*.db-journal
+.env
 .venv/
 venv/
-ENV/
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.pytest_cache/
-
-# SQLite Database (can be reseeded with python main.py or seed_data.py)
-*.db-journal
-
-# IDE & OS
-.vscode/
-.idea/
+.streamlit/
+*.pyc
+*.pyo
 .DS_Store
 Thumbs.db

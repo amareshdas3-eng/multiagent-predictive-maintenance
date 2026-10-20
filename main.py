@@ -1,5 +1,5 @@
 """
-main.py - Self-Contained Recruiter-Friendly CLI for Multi-Agent Predictive Maintenance.
+main.py - CLI for Multi-Agent Predictive Maintenance.
 
 Heavy Electrical Assets:
 - 11kV Dry-Type Transformers
@@ -163,15 +163,8 @@ def main():
     parser.add_argument("--asset", type=str, help="Asset ID to diagnose (e.g., TR-11kV-01, MCC-02, VFD-04, TR-11kV-NORMAL)")
     parser.add_argument("--all", action="store_true", help="Run the diagnostic pipeline sequentially for all sample assets")
     parser.add_argument("--reseed", action="store_true", help="Re-seed SQLite database with fresh initial telemetry")
-    parser.add_argument("--web", action="store_true", help="Launch the interactive web application dashboard")
 
     args = parser.parse_args()
-
-    if args.web:
-        import subprocess
-        print(f"{CYAN}{BOLD}[*] Launching Interactive Web Application...{RESET}")
-        subprocess.run([sys.executable, "app.py"])
-        return
 
     if args.reseed:
         seed_database()
@@ -195,11 +188,10 @@ def main():
         print(f"      {DIM}{asset['condition']}{RESET}\n")
     print(f"  [5] {BOLD}RUN ALL ASSETS SEQUENTIALLY{RESET}")
     print(f"  [6] {BOLD}RE-SEED SQLITE DATABASE{RESET}")
-    print(f"  [7] {BOLD}LAUNCH INTERACTIVE WEB APPLICATION (1-CLICK GUI){RESET}")
     print(f"  [0] {BOLD}EXIT{RESET}\n")
 
     try:
-        choice = input(f"{BOLD}Enter selection (0-7) [default: 1]: {RESET}").strip()
+        choice = input(f"{BOLD}Enter selection (0-6) [default: 1]: {RESET}").strip()
         if not choice:
             choice = "1"
 
@@ -215,10 +207,6 @@ def main():
                 time.sleep(0.4)
         elif choice == "6":
             seed_database()
-        elif choice == "7":
-            import subprocess
-            print(f"{CYAN}{BOLD}[*] Launching Interactive Web Application...{RESET}")
-            subprocess.run([sys.executable, "app.py"])
         else:
             print(f"{RED}Invalid selection. Running default asset TR-11kV-01...{RESET}")
             execute_asset_pipeline("TR-11kV-01")

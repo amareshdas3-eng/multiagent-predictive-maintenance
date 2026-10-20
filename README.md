@@ -1,158 +1,116 @@
-# Multi-Agent Predictive Maintenance for Heavy Industrial Electrical Assets
+# Industrial Multi-Agent Predictive Maintenance System ⚡
 
 [![LangGraph](https://img.shields.io/badge/Orchestration-LangGraph-blue.svg)](https://github.com/langchain-ai/langgraph)
 [![SQLite](https://img.shields.io/badge/Database-SQLite%203-green.svg)](https://www.sqlite.org/)
-[![SQLAlchemy](https://img.shields.io/badge/ORM-SQLAlchemy%202.0-red.svg)](https://www.sqlalchemy.org/)
-[![Status](https://img.shields.io/badge/Execution-100%25%20Self--Contained%20Local-brightgreen.svg)](#)
+[![Streamlit](https://img.shields.io/badge/Dashboard-Streamlit-red.svg)](https://streamlit.io/)
+[![Status](https://img.shields.io/badge/Execution-100%25%20Local%20%26%20Zero--Cost-brightgreen.svg)](#)
 
-A self-contained, recruiter-friendly multi-agent predictive maintenance system specialized for **heavy industrial electrical equipment**:
-1. **11kV / 415V Cast-Resin Dry-Type Transformers** (IEC 60076-11)
-2. **415V 3200A Motor Control Centers (MCC)** (IEEE C37.20.1 / IEEE 141)
-3. **315kW Heavy Industrial Variable Frequency Drives (VFD)** (PWM Inverters & IEEE 519)
-
- **zero-cloud, local SQLite + SQLAlchemy** stack with fallback JSON metadata and production calendars. Anyone can clone this repository and run the full pipeline locally with **`python main.py`** without needing cloud accounts or paid API keys.
+A 100% local, zero-cost multi-agent AI system built with **LangGraph** and **SQLite** to diagnose industrial electrical faults (**11kV Transformers, Motor Control Centers (MCC), and Variable Frequency VFDs**), query maintenance manuals, and automatically schedule work orders. Designed and architected to bridge heavy industrial electrical engineering with modern agentic AI workflows.
 
 ---
 
-## ⚡ Architecture & Agentic Workflow
+## 🚀 Quick Start (Zero Cloud Setup Required)
 
-The system is coordinated via a **LangGraph StateGraph** state machine:
+Clone the repository and run the entire pipeline locally:
 
-```mermaid
-flowchart TD
-    Start([START]) --> Node1[Node 1: Telemetry Diagnostics Agent]
-    Node1 --> Condition{Fault Detected?}
-    
-    Condition -- "Yes (Fault / Critical / High)" --> Node2[Node 2: Manual Retrieval & RCA Agent]
-    Condition -- "No (Equipment Healthy)" --> EndEarly([END: Bypass RCA & Work Order])
-    
-    Node2 --> Node3[Node 3: Work Order & Maintenance Scheduler Agent]
-    Node3 --> Persist[(SQLite: plant_maintenance.db)]
-    Node3 --> End([END])
-    
-    style Start fill:#2563eb,stroke:#fff,color:#fff
-    style Node1 fill:#0891b2,stroke:#fff,color:#fff
-    style Condition fill:#f59e0b,stroke:#fff,color:#000
-    style Node2 fill:#7c3aed,stroke:#fff,color:#fff
-    style Node3 fill:#059669,stroke:#fff,color:#fff
-    style Persist fill:#334155,stroke:#fff,color:#fff
-    style EndEarly fill:#64748b,stroke:#fff,color:#fff
-    style End fill:#2563eb,stroke:#fff,color:#fff
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/multiagent-predictive-maintenance.git
+   cd multiagent-predictive-maintenance
+   ```
 
-### Specialized Agents
+2. **Set up virtual environment & install dependencies:**
+   ```bash
+   python -m venv .venv
+   .\.venv\Scripts\Activate.ps1    # On Windows
+   # source .venv/bin/activate     # On Linux / macOS
+   pip install -r requirements.txt
+   ```
 
-1. **Telemetry Diagnostics Agent (`agents/telemetry_diagnostics.py`)**:
-   - Analyzes real-time and historical sensor telemetry streams against physical and electrical standards:
-     - **11kV Transformers**: Winding temperature spikes (>95°C alarm, >110°C trip per IEC 60076-11), forced-air fan blower failure/stall, and phase load current asymmetry (>10% unbalance).
-     - **Motor Control Centers (MCC)**: Busbar thermal joint overheating (>75°C alarm, >90°C trip per IEEE C37.20.1), frequent thermal relay trips, and contactor chatter signatures caused by 110V control bus under-voltage.
-     - **Variable Frequency Drives (VFD)**: DC-link overvoltage (>740V trip), IGBT module junction overheating (>95°C), high current Total Harmonic Distortion (>5% THD per IEEE 519), and output phase unbalance.
-   - Outputs structured diagnosis with severity classification (`Critical`, `High`, `Medium`, `Low`).
+3. **Initialize local database with sample industrial telemetry:**
+   ```bash
+   python seed_data.py
+   ```
 
-2. **Manual Retrieval & Root Cause Analysis (RCA) Agent (`agents/manual_retrieval.py`)**:
-   - Queries local documentation and electrical engineering standards in SQLite (`MaintenanceManual` table).
-   - Retrieves top 3 OEM troubleshooting sections matching the specific asset and failure mode.
-   - Extracts bolt torque specifications, Megger / insulation resistance thresholds, secondary current injection calibration rules, and life-critical safety warnings (e.g., NFPA 70E Arc-Flash Category 4, lethal DC bus capacitor stored energy).
-
-3. **Work Order & Maintenance Scheduler Agent (`agents/work_order_scheduler.py`)**:
-   - Cross-references the fault severity against the simulated local production schedule (`data/production_calendar.json`):
-     - **Critical**: Immediate Emergency Shutdown (2-hour window, Class 1 Permit).
-     - **High**: Scheduled within 24 hours during upcoming off-peak shift (Class 2 Permit).
-     - **Medium**: Scheduled during next weekly plant outage window (Class 3 Permit).
-   - Generates a formal, printable Markdown Work Order with LOTO steps, required tools/instruments (e.g., 5kV Megger, OMICRON secondary injection set, FLIR thermal camera, calibrated torque wrenches), and estimated downtime.
-   - Commits the record to the local SQLite database (`work_orders` table).
+4. **Launch the interactive Streamlit Dashboard:**
+   ```bash
+   streamlit run app.py
+   ```
+   *(Or launch in 1 click on Windows with `run_app.bat` or run via CLI: `python main.py`)*
 
 ---
 
-## 🚀 Quickstart Guide
+## 🧠 System Architecture & Agents
 
-### 1. Prerequisites
-- Python 3.10+ (Tested through Python 3.14)
-- Git
-
-### 2. Setup Virtual Environment
-```bash
-# Clone the repository
-git clone <repo-url>
-cd "Multiagent predictictive maintenance"
-
-# Create and activate virtual environment
-python -m venv .venv
-
-# On Windows (PowerShell):
-.\.venv\Scripts\Activate.ps1
-
-# On Linux/macOS:
-source .venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
+```
+[ Industrial Telemetry ]
+        │
+        ▼
+[ Telemetry Diagnostics Agent ] ──(Fault Detected?)──► [ Manual & RCA Retrieval Agent ]
+                                                                  │
+                                                                  ▼
+                                                      [ Work Order Scheduler ] ──► [ SQLite DB ]
 ```
 
-### 3. Launch the 1-Click Interactive Web Dashboard
-You can launch the full interactive GUI application with a single command or by double-clicking `run_app.bat`:
+- **Telemetry Diagnostics Agent (`src/agents.py`)**: Analyzes thermal spikes, harmonic distortion (THD), and load imbalances based on industrial electrical principles:
+  - **11kV Transformers**: Winding temperature spikes (>95°C alarm, >110°C trip per IEC 60076-11), fan failure, and phase unbalance (>10%).
+  - **Motor Control Centers (MCC)**: Busbar thermal overload (>75°C alarm, >90°C trip per IEEE C37.20.1), frequent thermal relay trips, and contactor chatter signatures.
+  - **Variable Frequency Drives (VFD)**: DC-link overvoltage (>740V trip), IGBT overtemperature (>95°C), high THD (>5% per IEEE 519), and output phase unbalance.
+- **Manual & RCA Agent (`src/agents.py`)**: Queries local documentation and electrical engineering standards in SQLite (`MaintenanceManual` table), extracts OEM torque specs, Megger testing procedures, and life-critical safety warnings.
+- **Scheduler Agent (`src/agents.py`)**: Evaluates severity against plant calendar windows, generates formal LOTO (Lockout/Tagout) requirements, assigns calibrated spares, and logs formal work orders into SQLite (`work_orders` table).
 
-```powershell
-# 1-Click Launcher (starts server and opens browser automatically)
-.\run_app.bat
+---
 
-# Or via Python:
-python app.py
+## 📁 Repository Structure
 
-# Or via CLI flag:
-python main.py --web
 ```
-Access the dashboard at **`http://127.0.0.1:8000`**.
+multiagent-predictive-maintenance/
+├── data/
+│   ├── equipment_manuals.json      # Sample OEM manuals / specs for 11kV Transformers, MCC, VFD
+│   ├── equipment_metadata.json     # Technical ratings, LOTO points & location metadata
+│   └── production_calendar.json    # Plant shifts, peak windows, and outage schedules
+├── src/
+│   ├── __init__.py
+│   ├── database.py                 # SQLite setup & SQLAlchemy models
+│   ├── agents.py                   # Telemetry, RCA, and Scheduler agent definitions
+│   └── graph.py                    # LangGraph orchestration state machine
+├── web/                            # Full-featured cyber-industrial web dashboard
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
+├── .gitignore                      # Ignore local dbs, virtual envs, and cache
+├── requirements.txt                # Python dependencies
+├── seed_data.py                    # Populates SQLite with sample industrial telemetry/assets
+├── main.py                         # CLI runner script
+├── app.py                          # Streamlit web UI runner
+├── run_app.bat                     # 1-Click desktop launcher for Windows
+├── test_pipeline.py                # Automated unit test suite (10/10 passing)
+└── README.md                       # Professional documentation & portfolio showcase
+```
 
-### 4. Direct CLI Commands
-If you prefer running in terminal:
+---
+
+## 💻 CLI Usage
+
 ```bash
-# Interactive terminal menu (choose option 1-7)
+# Run interactive CLI selection menu:
 python main.py
 
-# Diagnose 11kV Dry-Type Transformer (Faulty: Overheat & Fan Failure)
-python main.py --asset TR-11kV-01
+# Diagnose specific equipment:
+python main.py --asset TR-11kV-01      # 11kV Transformer Overheat & Fan Failure
+python main.py --asset MCC-02          # MCC Busbar Thermal Overload & Chatter
+python main.py --asset VFD-04          # 315kW VFD DC-Link Overvoltage & THD
+python main.py --asset TR-11kV-NORMAL  # Healthy Baseline (Conditional Bypass Demo)
 
-# Diagnose Motor Control Center Incomer (Faulty: Busbar Heating & Contactor Chatter)
-python main.py --asset MCC-02
-
-# Diagnose 315kW Variable Frequency Drive (Faulty: DC-Link Overvoltage & THD)
-python main.py --asset VFD-04
-
-# Diagnose Baseline Healthy Transformer (Demonstrates conditional bypass to END)
-python main.py --asset TR-11kV-NORMAL
-
-# Run all assets sequentially
+# Run all assets in batch:
 python main.py --all
 ```
 
 ---
 
-## 📂 Repository File Structure
+## 🧪 Automated Testing
 
-```
-├── agents/
-│   ├── __init__.py
-│   ├── telemetry_diagnostics.py     # Senior Electrical Reliability Diagnostics Agent
-│   ├── manual_retrieval.py          # RCA & Standards (IEC/IEEE) Retrieval Agent
-│   └── work_order_scheduler.py      # Maintenance Planner & Work Order Generator
-├── data/
-│   ├── equipment_metadata.json      # Equipment ratings, location & LOTO isolation points
-│   └── production_calendar.json     # Shifts, peak windows, and outage schedules
-├── database.py                      # SQLAlchemy models & SQLite session layer
-├── graph.py                         # LangGraph StateGraph orchestration pipeline
-├── main.py                          # Interactive CLI wrapper with ANSI formatting
-├── seed_data.py                     # Realistic industrial telemetry & manual seeder
-├── test_pipeline.py                 # Automated unit test suite (100% pass)
-├── requirements.txt                 # Pinned dependencies
-└── plant_maintenance.db             # Local SQLite database (auto-generated)
-```
-
----
-
-## 🧪 Testing
-
-Run the automated test suite verifying database layer, telemetry heuristics, manual chunk retrieval, work order generation, and LangGraph conditional edges:
+Run the automated test suite verifying database operations, heuristic algorithms, manual retrieval, and LangGraph conditional branches:
 
 ```bash
 python -m unittest test_pipeline.py
@@ -166,9 +124,18 @@ OK
 
 ---
 
-## 🛡️ Industrial Standards Referenced
-- **IEC 60076-11**: Dry-Type Power Transformers (Class F temperature rise, thermal trip curves, Megger testing).
+## 🛡️ Industrial Engineering Standards Referenced
+- **IEC 60076-11**: Dry-Type Power Transformers (Class F temperature rise limits, Megger insulation resistance testing).
 - **IEEE C37.20.1**: Metal-Enclosed Low-Voltage Switchgear and Busway Systems.
-- **IEEE 141**: Recommended Practice for Electric Power Distribution in Industrial Plants.
+- **IEEE 141**: Recommended Practice for Electric Power Distribution in Industrial Plants (Red Book).
 - **IEEE 519**: Standard for Harmonic Control in Electric Power Systems.
 - **NFPA 70E**: Standard for Electrical Safety in the Workplace (Lockout / Tagout & Arc Flash Category 4).
+
+---
+
+## 👨‍💻 About the Author
+
+**Amaresh Das**  
+*Senior Industrial Project, Reliability & AI Transformation Consultant*  
+23+ years of experience in heavy electrical infrastructure, substation commissioning, and industrial project controls.  
+[LinkedIn Profile](https://linkedin.com/in/YOUR_LINKEDIN) | [ProEngineering Portfolio](https://proengineering.in)

@@ -1,0 +1,50 @@
+{
+  "transformer_manuals": [
+    {
+      "doc_id": "MAN-TR-01",
+      "standard": "IEC 60076-11",
+      "title": "Power Transformers: Dry-Type Operational Limits & Thermal Protection",
+      "section": "Section 8.2: Winding Temperature Rise & Cooling Failure Diagnostics",
+      "content": "Dry-type cast-resin transformers with Class F insulation have a maximum rated temperature limit of 155°C and an allowable temperature rise of 100K above ambient (40°C). Alarm threshold is set at 95°C and automatic emergency trip threshold is mandated at 110°C. Root causes: cooling blower loss, load unbalance (>10%), louver blockage."
+    },
+    {
+      "doc_id": "MAN-TR-02",
+      "standard": "IEC 60076-11",
+      "title": "Testing Procedures & Insulation Resistance Protocol",
+      "section": "Section 14.3: Post-Fault Insulation Resistance (Megger) & Busbar Torque Specs",
+      "content": "Insulation resistance test: 5kV Megger for HV windings (min 1000 Mega-ohms at 20°C). Polarization Index PI >= 2.0. Busbar torque: HV M12 = 85 Nm, LV M16 = 120 Nm."
+    }
+  ],
+  "mcc_manuals": [
+    {
+      "doc_id": "MAN-MCC-01",
+      "standard": "IEEE C37.20.1",
+      "title": "Metal-Enclosed Switchgear & Busway Thermal Overload Standards",
+      "section": "Section 6.4: Busbar Temperature Rise Criteria and Thermal Relay Tripping",
+      "content": "In 415V 3200A MCCs, busbar joint temperatures must not exceed 75°C continuous (limit 90°C full load). Thermography delta-T > 15°C indicates loose fasteners or oxidation. Frequent thermal relay trips (>2/shift) indicate high enclosure ambient or overload."
+    },
+    {
+      "doc_id": "MAN-MCC-02",
+      "standard": "IEEE 141",
+      "title": "Industrial Power Systems: Contactor Diagnostics & Voltage Sags",
+      "section": "Section 9.5: Contactor Chatter Root Cause Analysis & Control Under-voltage",
+      "content": "Contactor chatter causes micro-arcing and contact welding. Primary root cause: 110V AC control circuit voltage drops below 85% (<93.5V). Check control transformer secondary and shading ring cracks."
+    }
+  ],
+  "vfd_manuals": [
+    {
+      "doc_id": "MAN-VFD-01",
+      "standard": "OEM Technical Manual",
+      "title": "315kW Heavy Industrial Variable Frequency Drive Troubleshooting",
+      "section": "Section 5.1: DC-Link Overvoltage & Regenerative Braking Faults",
+      "content": "Nominal DC-bus voltage: 560-585V DC. Warning at 720V DC, emergency trip at 740V DC. Causes: overhauling loads without DBR dynamic braking resistor or line surge."
+    },
+    {
+      "doc_id": "MAN-VFD-02",
+      "standard": "IEEE 519 & OEM SOP",
+      "title": "Life-Critical Capacitive Energy Discharge & Harmonic Distortion Limits",
+      "section": "Section 2.4: DC Bus Stored Energy Discharge Protocol",
+      "content": "DANGER: DC capacitor bank stores > 800 Joules lethal energy. MANDATORY: Wait 10 minutes after AC breaker isolation for bleed resistors. Measure DC+ to DC- < 50V DC before touching."
+    }
+  ]
+}
