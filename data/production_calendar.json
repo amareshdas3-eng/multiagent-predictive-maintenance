@@ -1,0 +1,46 @@
+{
+  "plant_name": "Apex Power & Energy Complex Unit 1",
+  "operating_mode": "CONTINUOUS_BASELOAD",
+  "current_date": "2026-10-20",
+  "active_shift": "Shift 1 (06:00 - 14:00)",
+  "production_windows": [
+    {
+      "window_id": "PW-PEAK-01",
+      "start": "2026-10-20T08:00:00",
+      "end": "2026-10-20T18:00:00",
+      "type": "PEAK_PRODUCTION",
+      "shutdown_allowed": false,
+      "exception": "CRITICAL_SAFETY_TRIP_ONLY"
+    },
+    {
+      "window_id": "PW-OFFPEAK-01",
+      "start": "2026-10-20T22:00:00",
+      "end": "2026-10-21T05:00:00",
+      "type": "OFF_PEAK_WINDOW",
+      "shutdown_allowed": true,
+      "max_downtime_hours": 6
+    },
+    {
+      "window_id": "PW-OUTAGE-WEEKLY",
+      "start": "2026-10-25T01:00:00",
+      "end": "2026-10-25T16:00:00",
+      "type": "SCHEDULED_PLANT_OUTAGE",
+      "shutdown_allowed": true,
+      "max_downtime_hours": 15
+    }
+  ],
+  "available_maintenance_crews": [
+    {
+      "crew_id": "CREW-ELEC-HV",
+      "specialization": "HV/MV Substations & Transformers (11kV-33kV)",
+      "lead_engineer": "Senior Substation Specialist",
+      "standby_status": "AVAILABLE"
+    },
+    {
+      "crew_id": "CREW-ELEC-DRIVES",
+      "specialization": "Power Electronics, VFDs & Motor Controls",
+      "lead_engineer": "Automation & Drives Engineer",
+      "standby_status": "AVAILABLE"
+    }
+  ]
+}

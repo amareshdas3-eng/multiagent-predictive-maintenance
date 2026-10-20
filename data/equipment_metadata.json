@@ -1,0 +1,91 @@
+{
+  "TR-11kV-01": {
+    "asset_id": "TR-11kV-01",
+    "asset_name": "Unit Auxiliary Transformer 1A",
+    "asset_type": "Transformer",
+    "voltage_rating": "11kV / 415V",
+    "capacity_kva": 2500,
+    "cooling_class": "AN/AF (Air Natural / Air Forced)",
+    "insulation_class": "Class F (155°C max, 100K rise)",
+    "location": "Substation-A, Bay-03",
+    "feeder": "11kV Busbar Section 1",
+    "critical_thresholds": {
+      "winding_temp_alarm_c": 95.0,
+      "winding_temp_trip_c": 110.0,
+      "current_unbalance_pct": 10.0,
+      "fan_operational_min_rpm": 1200
+    },
+    "loto_isolation_points": [
+      "Open and rack out 11kV Incomer Vacuum Circuit Breaker VCB-TR-01",
+      "Close HV Earthing Switch ES-11-01 and lock in closed position",
+      "Open LV Incomer Air Circuit Breaker ACB-LV-01",
+      "Apply Danger Tag and Padlock to VCB trip coil circuit"
+    ]
+  },
+  "MCC-02": {
+    "asset_id": "MCC-02",
+    "asset_name": "Boiler Island Motor Control Center 02",
+    "asset_type": "MCC",
+    "voltage_rating": "415V, 3-Phase, 4-Wire, 50Hz",
+    "rated_busbar_current_amps": 3200,
+    "short_circuit_withstand_ka": 65,
+    "location": "MCC Room 2, Level +4.5m",
+    "feeder": "LV Distribution Board DB-02",
+    "critical_thresholds": {
+      "busbar_temp_alarm_c": 75.0,
+      "busbar_temp_trip_c": 90.0,
+      "contactor_chatter_max_events_hr": 3,
+      "relay_trip_count_max_24h": 1
+    },
+    "loto_isolation_points": [
+      "Rack out MCC-02 Main Incomer ACB-3200A",
+      "Verify zero voltage on incoming and busbar side using calibrated multimeter",
+      "Install safety shutters over busbar stabs and lock with Master Padlock",
+      "Isolate 110V AC control supply fuse switch FS-CTRL-02"
+    ]
+  },
+  "VFD-04": {
+    "asset_id": "VFD-04",
+    "asset_name": "Boiler Feed Pump #2 Variable Frequency Drive",
+    "asset_type": "VFD",
+    "voltage_rating": "415V / 0-415V Variable Frequency",
+    "power_rating_kw": 315,
+    "inverter_topology": "IGBT PWM with 6-Pulse Diode Front End",
+    "nominal_dc_bus_volts": 585.0,
+    "location": "VFD Containerized Switchroom VFD-CR-01",
+    "driven_equipment": "High-Pressure Feed Pump P-201B",
+    "critical_thresholds": {
+      "dc_link_overvoltage_trip_v": 740.0,
+      "igbt_temp_alarm_c": 85.0,
+      "igbt_temp_trip_c": 95.0,
+      "thd_current_max_pct": 5.0,
+      "phase_current_unbalance_pct": 5.0
+    },
+    "loto_isolation_points": [
+      "Open Upstream MCC Feeder Breaker MCC-02-F08",
+      "Verify zero AC line voltage at drive input terminals R, S, T",
+      "CRITICAL: Wait minimum 10 minutes for DC bus discharge capacitors to bleed down",
+      "Measure DC-bus terminals (DC+ and DC-) with DC rated voltmeter to verify < 50VDC before contact",
+      "Apply LOTO hasp to Drive disconnect switch DS-VFD-04"
+    ]
+  },
+  "TR-11kV-NORMAL": {
+    "asset_id": "TR-11kV-NORMAL",
+    "asset_name": "Unit Auxiliary Transformer 1B (Healthy Baseline)",
+    "asset_type": "Transformer",
+    "voltage_rating": "11kV / 415V",
+    "capacity_kva": 2500,
+    "cooling_class": "AN/AF",
+    "insulation_class": "Class F",
+    "location": "Substation-B, Bay-01",
+    "critical_thresholds": {
+      "winding_temp_alarm_c": 95.0,
+      "winding_temp_trip_c": 110.0
+    },
+    "loto_isolation_points": [
+      "Open 11kV Incomer VCB-TR-02",
+      "Close Earthing Switch ES-11-02",
+      "Open LV Incomer ACB-LV-02"
+    ]
+  }
+}
