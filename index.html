@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heavy Electrical Assets - Multi-Agent Predictive Maintenance Suite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-left">
+      <div class="logo-badge">
+        <span class="icon">⚡</span>
+        <div class="logo-text">
+          <h1>PREDICTIVE MAINTENANCE <span>MULTI-AGENT AI</span></h1>
+          <p class="subtitle">11kV Transformers • Motor Control Centers (MCC) • Variable Frequency Drives (VFD)</p>
+        </div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="status-pill online">
+        <span class="pulse-dot"></span>
+        <span>LangGraph Orchestrator: ACTIVE</span>
+      </div>
+      <div class="status-pill db-pill">
+        <span class="icon">🗄️</span>
+        <span>SQLite: plant_maintenance.db</span>
+      </div>
+      <a href="https://github.com/amareshdas3-eng/multiagent-predictive-maintenance" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="text-decoration:none;display:inline-flex;align-items:center;gap:.35rem;" title="View Source on GitHub"><span>💻 @amareshdas3-eng</span></a>
+      <button class="btn btn-secondary btn-sm" id="btn-reseed" title="Reset SQLite database to baseline sample telemetry">
+        🔄 Re-seed Data
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    
+    <!-- Top Row: LangGraph Interactive Coordination Diagram -->
+    <section class="card graph-card">
+      <div class="card-header">
+        <div class="card-title">
+          <span class="badge-tag">LANGGRAPH ORCHESTRATION</span>
+          <h2>Autonomous Multi-Agent Workflow Pipeline</h2>
+        </div>
+        <div class="graph-legend">
+          <span class="legend-item"><span class="dot idle"></span> Idle</span>
+          <span class="legend-item"><span class="dot active"></span> Processing</span>
+          <span class="legend-item"><span class="dot complete"></span> Complete</span>
+          <span class="legend-item"><span class="dot bypass"></span> Conditional Bypass</span>
+        </div>
+      </div>
+
+      <!-- Graph Flow Visualization -->
+      <div class="graph-flow-container">
+        <!-- Start Node -->
+        <div class="graph-node" id="node-start">
+          <div class="node-icon">🚀</div>
+          <div class="node-label">START</div>
+          <div class="node-sub">Telemetry Ingestion</div>
+        </div>
+
+        <div class="graph-edge" id="edge-1">
+          <div class="edge-line"></div>
+          <div class="edge-arrow">▶</div>
+        </div>
+
+        <!-- Node 1: Telemetry Diagnostics Agent -->
+        <div class="graph-node" id="node-telemetry">
+          <div class="node-tag">AGENT 1</div>
+          <div class="node-icon">📊</div>
+          <div class="node-label">Telemetry Diagnostics</div>
+          <div class="node-sub">IEC 60076 / IEEE C37.20</div>
+          <div class="node-status" id="status-telemetry">IDLE</div>
+        </div>
+
+        <div class="graph-edge" id="edge-2">
+          <div class="edge-line"></div>
+          <div class="edge-arrow">▶</div>
+        </div>
+
+        <!-- Conditional Router Node -->
+        <div class="graph-node diamond" id="node-condition">
+          <div class="node-icon">🔀</div>
+          <div class="node-label">Fault Check</div>
+          <div class="node-sub">fault_detected == True?</div>
+          <div class="node-status" id="status-condition">GATE</div>
+        </div>
+
+        <!-- Conditional Branch (False -> End) -->
+        <div class="branch-bypass" id="branch-bypass">
+          <div class="bypass-line"></div>
+          <span class="bypass-badge">No Fault ➔ Bypass to END</span>
+        </div>
+
+        <div class="graph-edge" id="edge-3">
+          <div class="edge-line"></div>
+          <div class="edge-arrow">▶</div>
+          <span class="edge-condition-label">Fault Detected</span>
+        </div>
+
+        <!-- Node 2: Manual Retrieval & RCA Agent -->
+        <div class="graph-node" id="node-rca">
+          <div class="node-tag">AGENT 2</div>
+          <div class="node-icon">📖</div>
+          <div class="node-label">Manual Retrieval & RCA</div>
+          <div class="node-sub">Standards & Torque Specs</div>
+          <div class="node-status" id="status-rca">IDLE</div>
+        </div>
+
+        <div class="graph-edge" id="edge-4">
+          <div class="edge-line"></div>
+          <div class="edge-arrow">▶</div>
+        </div>
+
+        <!-- Node 3: Work Order & Scheduler Agent -->
+        <div class="graph-node" id="node-scheduler">
+          <div class="node-tag">AGENT 3</div>
+          <div class="node-icon">📝</div>
+          <div class="node-label">Work Order Scheduler</div>
+          <div class="node-sub">Calendar LOTO & Spares</div>
+          <div class="node-status" id="status-scheduler">IDLE</div>
+        </div>
+
+        <div class="graph-edge" id="edge-5">
+          <div class="edge-line"></div>
+          <div class="edge-arrow">▶</div>
+        </div>
+
+        <!-- End Node -->
+        <div class="graph-node" id="node-end">
+          <div class="node-icon">🏁</div>
+          <div class="node-label">END / PERSIST</div>
+          <div class="node-sub">SQLite SQLite Storage</div>
+          <div class="node-status" id="status-end">IDLE</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Middle Section: 1-Click Asset Selection Grid -->
+    <section class="section-assets">
+      <div class="section-title-bar">
+        <div>
+          <h2>Target Industrial Electrical Assets</h2>
+          <p class="section-sub">Select an asset to trigger the autonomous multi-agent diagnostic pipeline in 1 click.</p>
+        </div>
+        <div class="quick-actions">
+          <button class="btn btn-primary" id="btn-run-all">
+            ⚡ Run Diagnostic On All Assets (Batch)
+          </button>
+        </div>
+      </div>
+
+      <div class="assets-grid" id="assets-grid">
+        <!-- Rendered dynamically via JavaScript -->
+        <div class="asset-card loading-card">Loading electrical assets from SQLite...</div>
+      </div>
+    </section>
+
+    <!-- Lower Section: Split Console & Output View -->
+    <div class="split-layout">
+      
+      <!-- Left Column: Multi-Agent Coordination Log & Live Metrics -->
+      <div class="split-col">
+        
+        <!-- Live Parameter Playground / Simulation Box -->
+        <section class="card sim-card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="badge-tag">INTERACTIVE SIMULATION</span>
+              <h3>Real-Time Parameter Injection</h3>
+            </div>
+            <button class="btn btn-accent btn-sm" id="btn-trigger-sim">
+              ⚡ Inject & Run Pipeline
+            </button>
+          </div>
+          <p class="sim-intro">Adjust sensor thresholds live to test how the diagnostic agents react dynamically:</p>
+          
+          <div class="sliders-grid">
+            <div class="slider-group">
+              <div class="slider-header">
+                <label>11kV Winding Temp (°C)</label>
+                <span class="slider-value" id="val-winding-temp">114.5 °C</span>
+              </div>
+              <input type="range" id="input-winding-temp" min="40" max="140" value="114" step="1">
+              <div class="slider-ticks"><span>Safe (65°C)</span><span class="warn-tick">Alarm (95°C)</span><span class="crit-tick">Trip (110°C)</span></div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <label>VFD DC-Link Voltage (V DC)</label>
+                <span class="slider-value" id="val-dc-volts">764 V</span>
+              </div>
+              <input type="range" id="input-dc-volts" min="500" max="850" value="764" step="2">
+              <div class="slider-ticks"><span>Nominal (585V)</span><span class="warn-tick">Warning (720V)</span><span class="crit-tick">Trip (740V)</span></div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <label>MCC Busbar Temp (°C)</label>
+                <span class="slider-value" id="val-busbar-temp">88.4 °C</span>
+              </div>
+              <input type="range" id="input-busbar-temp" min="30" max="110" value="88" step="1">
+              <div class="slider-ticks"><span>Norm (45°C)</span><span class="warn-tick">Alarm (75°C)</span><span class="crit-tick">Max (90°C)</span></div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-header">
+                <label>Total Harmonic Distortion (THD %)</label>
+                <span class="slider-value" id="val-thd">14.8 %</span>
+              </div>
+              <input type="range" id="input-thd" min="1" max="25" value="14.8" step="0.2">
+              <div class="slider-ticks"><span>IEEE 519 (5%)</span><span class="warn-tick">Elevated (8%)</span><span class="crit-tick">Severe (>12%)</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Multi-Agent Thought Stream -->
+        <section class="card console-card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="badge-tag">MULTI-AGENT COORDINATION</span>
+              <h3>Agent Reasoning & Diagnostic Trace</h3>
+            </div>
+            <div class="execution-badge" id="execution-time-badge">
+              ⚡ Execution Time: -- ms
+            </div>
+          </div>
+
+          <div class="console-body" id="console-logs">
+            <div class="empty-state">
+              <div class="empty-icon">💡</div>
+              <h4>No Active Diagnostic In Flight</h4>
+              <p>Click <strong>"1-Click Diagnose"</strong> on any equipment card above to watch the agents coordinate in real-time.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Right Column: Generated Work Order & Database History -->
+      <div class="split-col">
+        
+        <!-- Work Order Markdown Document -->
+        <section class="card workorder-card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="badge-tag success">OUTPUT DELIVERABLE</span>
+              <h3>Generated Maintenance Work Order</h3>
+            </div>
+            <div class="wo-actions">
+              <button class="btn btn-secondary btn-sm" id="btn-copy-wo" title="Copy markdown to clipboard">
+                📋 Copy
+              </button>
+              <button class="btn btn-secondary btn-sm" id="btn-print-wo" title="Print formal work order">
+                🖨️ Print
+              </button>
+            </div>
+          </div>
+
+          <div class="workorder-body" id="workorder-display">
+            <div class="empty-state">
+              <div class="empty-icon">📄</div>
+              <h4>Awaiting Agent Execution</h4>
+              <p>When an electrical anomaly is detected, Agent 3 automatically plans LOTO steps, reserves spare parts, and formats a formal Work Order here.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SQLite Logged Work Orders Table -->
+        <section class="card history-card">
+          <div class="card-header">
+            <div class="card-title">
+              <span class="badge-tag">SQLITE AUDIT TRAIL</span>
+              <h3>Persisted Work Orders Table (SQLite)</h3>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="btn-refresh-history">
+              🔄 Refresh
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Asset ID</th>
+                  <th>Priority</th>
+                  <th>Scheduled Window</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="history-table-body">
+                <tr><td colspan="5" class="text-center">Loading work order records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-left">
+      <span>Industrial Power Systems Predictive Maintenance Suite</span>
+      <span class="sep">•</span>
+      <span>Standards: IEC 60076-11, IEEE C37.20.1, IEEE 141, IEEE 519, NFPA 70E</span>
+    </div>
+    <div class="footer-right">
+      <span>State Machine: LangGraph StateGraph</span>
+      <span class="sep">•</span>
+      <span>Data Layer: SQLite 3 + SQLAlchemy</span>
+    </div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
