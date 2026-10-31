@@ -138,4 +138,25 @@ OK
 **Amaresh Das**  
 *Senior Industrial Project, Reliability & AI Transformation Consultant*  
 23+ years of experience in heavy electrical infrastructure, substation commissioning, and industrial project controls.  
-[LinkedIn Profile](https://linkedin.com/in/YOUR_LINKEDIN) | [ProEngineering Portfolio](https://proengineering.in)
+[LinkedIn Profile](https://linkedin.com/in/amaresh-das) | [ProEngineering Portfolio](https://proengineering.in)
+
+
+---
+
+## 🏛️ Executive Authority & Inbound Advisory Engagements
+
+**Amaresh Das, PMP®**  
+*Lead Electrical Engineer, Capital Projects Director & Industrial AI Architect*  
+23+ years leading heavy industrial electrical engineering, $200M+ EPC capital projects, and multi-agent AI assurance systems.
+
+- 🏛️ **Master Portfolio:** [https://amaresh-das.netlify.app/portfolio.html](https://amaresh-das.netlify.app/portfolio.html)
+- 📊 **Executive Capability Deck:** [https://amaresh-das.netlify.app/deck](https://amaresh-das.netlify.app/deck)
+- 💼 **LinkedIn Profile:** [https://linkedin.com/in/amaresh-das](https://linkedin.com/in/amaresh-das)
+- ✉️ **Direct Advisory Contact:** [amaresh.das3@gmail.com](mailto:amaresh.das3@gmail.com)
+
+### Inbound Engagement Models Available:
+1. **Fractional Owner's Engineer & Gatekeeper (20–30 hrs/mo Retainer)**: Specification vetting, FAT/SAT technical gatekeeping, IEC/IEEE standards enforcement, and vendor lock-in prevention.
+2. **Critical Incident RCA & Turnaround Sprint (10–14 Day Fixed Engagement)**: Popperian falsification audit for unexpected trips, arc flash events, or motor failures under IEEE C37.2 & IEC 60255.
+3. **Senior Remote PM / Program Director**: Asynchronous governance and multi-agent AI pipeline deployment for major industrial capital developments ($50M–$200M+).
+
+👉 **[Scoping & Inbound Retainers on Master Portfolio](https://amaresh-das.netlify.app/portfolio.html#engagement-models)**
